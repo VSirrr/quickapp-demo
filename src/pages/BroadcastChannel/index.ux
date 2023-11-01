@@ -1,0 +1,33 @@
+<template>
+  <div class="wrapper">
+    <text class="title">{{ title }}</text>
+  </div>
+</template>
+
+<script>
+export default {
+  private: {
+    title: '欢迎体验快应用开发'
+  },
+
+  onInit() {
+    const channelInstance = new BroadcastChannel('testChannel')
+    channelInstance.postMessage('helo from BroadcastChannel page')
+    channelInstance.onmessage = (evt) => {
+      console.log('testChannel---111', evt.data)
+    }
+  }
+}
+</script>
+
+<style>
+.wrapper {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  text-align: center;
+  color: #212121;
+}
+</style>

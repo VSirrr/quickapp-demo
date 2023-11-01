@@ -1,0 +1,27 @@
+<template>
+  <text class="badge" style="background-color: {{color}}">
+    <slot name="default"></slot>
+  </text>
+</template>
+
+<script>
+export default {
+  props: {
+    color: {
+      type: String,
+      default: '#ff4b3b'
+    }
+  }
+}
+</script>
+
+<style lang="less">
+.badge {
+  margin-left: 10px;
+  padding: 0 8px;
+  height: 28px;
+  border-radius: 6px;
+  font-size: 20px;
+  color: #ffffff;
+}
+</style>

@@ -1,0 +1,52 @@
+<template>
+  <div style="flex-direction: column">
+    <map
+      style="flex: 1"
+      latitude="{{latitude}}"
+      longitude="{{longitude}}"
+      scale="{{scale}}"
+      markers="{{markers}}"
+      coordtype="{{coordtype}}"
+    >
+    </map>
+  </div>
+</template>
+<script>
+const MARKER_PATH = 'assets/images/maker.png';
+
+const BEI_JING_WGS = {
+  latitude: 39.9073728469,
+  longitude: 116.3913445961,
+  coordType: 'wgs84'
+}
+console.log(MARKER_PATH)
+
+export default {
+  private: {
+    width: '100%',
+    height: '50%',
+    latitude: BEI_JING_WGS.latitude,
+    longitude: BEI_JING_WGS.longitude,
+    coordtype: BEI_JING_WGS.coordType,
+    scale: 20,
+    markers: [
+      {
+        width: '100%',
+        height: '50%',
+        latitude: BEI_JING_WGS.latitude,
+        longitude: BEI_JING_WGS.longitude,
+        coordType: BEI_JING_WGS.coordType,
+        iconPath: MARKER_PATH,
+        width: '48px',
+        callout: {
+          content: '这里是\n北京天安门',
+          padding: '20px 5px 20px 5px',
+          borderRadius: '20px',
+          textAlign: 'left',
+          display: 'always'
+        }
+      }
+    ]
+  }
+}
+</script>

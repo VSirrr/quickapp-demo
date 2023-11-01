@@ -1,0 +1,44 @@
+<template>
+  <div class="wrapper">
+    <text>{{ title }}</text>
+    <text>{{ age }}</text>
+  </div>
+</template>
+
+<script>
+// 自定义组件，指的是通过语法引入的 ViewModel 组件
+export default {
+  props: {
+    title: {
+      type: String,
+      default: 'test'
+    },
+    age: {
+      type: Number,
+      default: 0
+    }
+  },
+  // 监听初始化，当数据驱动化完成时触发
+  onInit() {
+    // 与 Vue 中 $attrs 类似，用于高阶组件传值
+    console.log('$attrs', this.$attrs)
+  },
+  // 监听模板创建完成，当模板创建完成时触发
+  onReady() {
+    // 与 Vue 中 $attrs 类似，用于高阶组件传值
+    console.log('$attrs', this.$attrs)
+    // 获取父亲 ViewModel
+    console.log('$parent', this.$parent())
+  },
+  // 监听组件销毁，当销毁时触发
+  onDestroy() {
+    console.log('child-four component is onDestroy')
+  },
+}
+</script>
+
+<style>
+.wrapper {
+  flex-direction: column;
+}
+</style>

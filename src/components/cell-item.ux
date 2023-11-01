@@ -1,0 +1,140 @@
+<template>
+  <div class="cell-item" style="{{noBorderStyle}}">
+    <div class="cell-item-content">
+      <div class="title">
+        <text>{{ title }}</text>
+        <slot name="badge"></slot>
+      </div>
+      <text if="{{label}}" class="label">{{ label }}</text>
+    </div>
+    <div class="cell-item-value" @click="click">
+      <text class="value" if="{{hasValue}}">{{ value }}</text>
+      <text class="placeholder" else>{{ placeholder }}</text>
+      <block if="{{arrow}}">
+        <div if="{{actionType}}" class="arrow">
+          <image src="/assets/images/icon-arrow-right-blue.png"></image>
+        </div>
+        <div else class="arrow">
+          <image show="{{toggle}}" src="/assets/images/icon-arrow-up-blue.png"></image>
+          <image show="{{!toggle}}" src="/assets/images/icon-arrow-down-blue.png"></image>
+        </div>
+      </block>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    title: {
+      type: String,
+      required: true
+    },
+    label: {
+      type: String,
+      default: ''
+    },
+    value: {
+      type: String,
+      required: true
+    },
+    placeholder: {
+      type: String,
+      default: '请输入'
+    },
+    arrow: {
+      type: Boolean,
+      default: true
+    },
+    toggle: {
+      type: Boolean,
+      default: false
+    },
+    noBorder: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    hasValue() {
+      const { value } = this
+      return value != null && value !== '' && value !== 0 && value !== '0'
+    },
+    actionType() {
+      return !this.label
+    },
+    noBorderStyle() {
+      return this.noBorder ? 'border-bottom-width: 0px;' : ''
+    }
+  },
+  check({ detail }) {
+    this.$emit('checked', detail)
+  },
+  click() {
+    if (this.actionType) {
+      this.$emit('action')
+    } else {
+      this.$emit('toggle', !this.toggle)
+    }
+  }
+}
+</script>
+
+<style lang="less">
+.cell-item {
+  padding: 18 * 2px 16 * 2px;
+  border-bottom: 1px solid #e6e6e6;
+
+  &-content {
+    flex-direction: column;
+
+    .title {
+      align-items: center;
+
+      text {
+        font-size: 28px;
+        font-weight: bold;
+        color: #222222;
+      }
+    }
+
+    .label {
+      font-size: 24px;
+      color: #646464;
+    }
+  }
+
+  &-value {
+    flex: 1;
+    padding-right: 36px;
+    justify-content: flex-end;
+
+    .value {
+      font-size: 36px;
+      font-weight: bold;
+      color: #222222;
+      lines: 1;
+      text-overflow: ellipsis;
+    }
+
+    .placeholder {
+      font-size: 28px;
+      color: #222222;
+    }
+
+    .arrow {
+      align-items: center;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 28px;
+
+      image {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  }
+}
+</style>

@@ -1,0 +1,24 @@
+<skeleton>
+  <clipPath width="800" autoHide="false">
+    <rect x="40" y="40" width="720" height="300" rx="0" ry="0"/>
+    <rect x="40" y="410" width="720" height="45" rx="0" ry="0"/>
+    <rect x="40" y="517" width="720" height="60" rx="30" ry="30"/>
+    <rect x="62" y="527" width="15" height="40" rx="0" ry="0"/>
+    <rect x="120" y="527" width="60" height="40" rx="0" ry="0"/>
+    <rect x="670" y="527" width="60" height="40" rx="0" ry="0"/>
+    <rect x="40" y="617" width="720" height="60" rx="30" ry="30"/>
+    <rect x="61" y="627" width="17" height="40" rx="0" ry="0"/>
+    <rect x="120" y="627" width="60" height="40" rx="0" ry="0"/>
+    <rect x="670" y="627" width="60" height="40" rx="0" ry="0"/>
+    <rect x="40" y="717" width="720" height="60" rx="30" ry="30"/>
+    <rect x="61" y="727" width="17" height="40" rx="0" ry="0"/>
+    <rect x="120" y="727" width="90" height="40" rx="0" ry="0"/>
+    <rect x="670" y="727" width="60" height="40" rx="0" ry="0"/>
+    <rect x="40" y="827" width="720" height="45" rx="0" ry="0"/>
+    <rect x="40" y="933" width="180" height="240" rx="7" ry="7"/>
+    <rect x="250" y="933" width="106" height="45" rx="0" ry="0"/>
+    <rect x="250" y="989" width="51" height="33" rx="0" ry="0"/>
+    <rect x="250" y="1032" width="510" height="63" rx="0" ry="0"/>
+    <rect x="250" y="1106" width="81" height="33" rx="0" ry="0"/>
+  </clipPath>
+</skeleton>

@@ -1,0 +1,159 @@
+<template>
+  <div class="doc-page">
+    <!--tab组件-->
+    <tabs class="tabs" index="0">
+      <tab-bar class="tab-bar">
+        <text class="tab-text">Console</text>
+        <text class="tab-text">Network</text>
+        <text class="tab-text">Storage</text>
+      </tab-bar>
+
+      <tab-content class="tab-content" scrollable="{{scrollable}}">
+        <!--基础组件-->
+        <div class="item-container">
+          <div>
+            <tabs>
+              <tab-bar class="tab-bar">
+                <text class="tab-text">all</text>
+                <text class="tab-text">log</text>
+                <text class="tab-text">error</text>
+              </tab-bar>
+            </tabs>
+          </div>
+          <!-- 列表 -->
+          <list
+            class="console-list"
+            id="list"
+            scrollpage="{{false}}"
+            @scrollbottom="scrollbottom"
+          >
+            <!-- 列表元素，属性type值相同时，需要确保渲染中dom结构相同 -->
+            <list-item
+              type="listItem"
+              class="console-list-item"
+              for="{{listData}}"
+            >
+              <text class="console-list-item-text">{{ $item.name }}</text>
+            </list-item>
+          </list>
+        </div>
+
+        <!--表单组件-->
+        <div class="item-container">
+          <text>2222222</text>
+        </div>
+
+        <!--列表组件-->
+        <div class="item-container">
+          <text>3333333</text>
+        </div>
+      </tab-content>
+    </tabs>
+  </div>
+</template>
+
+<script>
+export default {
+  private: {
+    listData: [
+      {
+        name: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+      },
+      {
+        name: {
+          a: 1,
+          b: 2,
+          c: {
+            a: 1,
+            b: 1,
+          },
+        },
+      },
+      { name: 'C' },
+      { name: 'D' },
+      { name: 'A' },
+      { name: 'B' },
+      { name: 'C' },
+      { name: 'D' },
+      { name: 'A' },
+      { name: 'B' },
+      { name: 'C' },
+      { name: 'D' },
+      { name: 'A' },
+      { name: 'B' },
+      { name: 'C' },
+      { name: 'D' },
+      { name: 'A' },
+      { name: 'B' },
+      { name: 'C' },
+      { name: 'D' },
+      { name: 'A' },
+      { name: 'B' },
+      { name: 'C' },
+      { name: 'D' },
+      { name: 'A' },
+      { name: 'B' },
+      { name: 'C' },
+      { name: 'D' },
+      { name: 'A' },
+      { name: 'B' },
+      { name: 'C' },
+      { name: 'D' },
+    ],
+    logs: [],
+  },
+  onInit() {
+    console.log(this.$app)
+  },
+  onShow() {
+    // throw 'test'
+  },
+  scrollbottom() {
+    console.log('scrollbottom')
+  },
+}
+</script>
+
+<style lang="less">
+.tabs {
+  flex: 1;
+  margin-top: 20px;
+  margin-right: 30px;
+  margin-left: 30px;
+  background-color: #ffffff;
+}
+.tab-content {
+  flex: 1;
+}
+.tab-bar {
+  height: 100px;
+  border-color: #bbbbbb;
+  color: #bbbbbb;
+  border-bottom-width: 1px;
+}
+.tab-text {
+  flex: 1;
+  text-align: center;
+}
+.tab-text:active {
+  color: #f76160;
+}
+.item-container {
+  flex: 1;
+  padding: 12px 12px 0;
+  flex-direction: column;
+}
+.console-list {
+  flex: 1;
+  flex-direction: column;
+
+  &-item {
+    padding: 12px;
+    border-bottom: 1px solid #e8e8e8;
+
+    &-text {
+      color: #919191;
+    }
+  }
+}
+</style>

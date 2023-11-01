@@ -1,0 +1,37 @@
+<template>
+  <div class="wrapper">
+    <text class="title">{{ title }}</text>
+    <!-- 以'/'开头的应用内页面的路径 -->
+    <!-- 页面内跳转并传递参数 -->
+    <a href="/pages/List?index=1">跳转List</a>
+    <!-- 包含完整schema的uri -->
+    <a href="tel:10086">调起电话</a>
+    <a href="sms:10086">调起短信</a>
+    <a href="mailto:example@xx.com">调起邮件</a>
+    <!-- 打开webview加载网页 -->
+    <a href="https://www.baidu.com/">打开网页</a>
+  </div>
+</template>
+
+<script>
+export default {
+  public: {
+    a: '',
+    b: '',
+  },
+  private: {
+    title: 'ALink',
+  },
+
+  onInit() {
+    console.log(this.a, 'a')
+    console.log(this.b, 'b')
+  },
+}
+</script>
+
+<style>
+.wrapper {
+  flex-direction: column;
+}
+</style>

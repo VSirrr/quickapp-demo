@@ -1,0 +1,30 @@
+<template>
+  <div id="content" style="flex-direction: column">
+    <input type="button" @click="onTestClick" value="会引发堆栈溢出" />
+    <text>{{ stateText }}</text>
+  </div>
+</template>
+
+<script>
+// 页面中的变量
+let el = null
+export default {
+  private: {
+    mContentNode: null,
+    stateText: 'init state',
+  },
+  onReady() {
+    /* 如将 $element('id')获取到内容，赋值给成员变量，则有可能引发堆栈溢出 */
+    // this.mContentNode = this.$element('content')
+    // 用页面中的变量进行赋值
+    // el = this.$element('content')
+    // 用非响应数据进行赋值
+    this.el = this.$element('content')
+    console.log(this.el, 'this.el')
+  },
+  onTestClick() {
+    /* 页面 DOM 存在成员变量的引用，当发生变化时，即是引发如上所述的一种必现方式 */
+    this.stateText = 'new state'
+  },
+}
+</script>

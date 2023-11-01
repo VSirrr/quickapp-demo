@@ -1,0 +1,196 @@
+<template>
+  <div class="yc-popup yc-popup--{{isPopupShow ? 'show' : 'hide'}}">
+    <div
+      class="yc-popup-mask {{isPopupBoxShow ? 'yc-popup-mask--show' : 'yc-popup-mask--hide'}}"
+      @click="clickMask"
+    ></div>
+    <!-- style="bottom: 530px" -->
+    <div
+      class="yc-popup-box {{isPopupBoxShow ? 'yc-popup-box--show' : 'yc-popup-box--hide'}}"
+    >
+      <div class="yc-popup-box-header" if="{{title}}">
+        <div class="left" @click="close">
+          <image class="back" src="/assets/images/icon-close.png"></image>
+        </div>
+        <div class="content">
+          <text class="title">{{ title }}</text>
+        </div>
+      </div>
+      <slot name="default"></slot>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    title: {
+      type: String,
+      default: '',
+    },
+    maskClosable: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  data() {
+    return {
+      isPopupShow: false,
+      isPopupBoxShow: false,
+    }
+  },
+  show() {
+    this.isPopupShow = true
+    this.isPopupBoxShow = true
+  },
+  hide() {
+    this.isPopupBoxShow = false
+    setTimeout(() => {
+      this.isPopupShow = false
+    }, 250)
+  },
+  clickMask() {
+    if (this.maskClosable) {
+      this.close()
+    }
+  },
+  close() {
+    this.$emit('close')
+    this.hide()
+  },
+}
+</script>
+
+<style lang="less">
+.yc-popup {
+  flex-direction: column;
+  justify-content: flex-end;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  &--show {
+    display: flex;
+  }
+
+  &--hide {
+    display: none;
+  }
+
+  &-mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(37, 38, 45, 0.7);
+
+    &--show {
+      animation-name: popupMaskShow;
+      animation-duration: 300ms;
+      animation-fill-mode: forwards;
+    }
+
+    &--hide {
+      animation-name: popupMaskHide;
+      animation-duration: 250ms;
+      animation-fill-mode: forwards;
+    }
+  }
+
+  &-box {
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+    background-color: #ffffff;
+
+    &--show {
+      animation-name: popupBoxShow;
+      animation-duration: 300ms;
+      animation-fill-mode: forwards;
+    }
+
+    &--hide {
+      animation-name: popupBoxHide;
+      animation-duration: 250ms;
+      animation-fill-mode: forwards;
+    }
+
+    &-header {
+      height: 88px;
+
+      .left {
+        justify-content: center;
+        align-items: center;
+        width: 112px;
+
+        .back {
+          width: 48px;
+          height: 48px;
+        }
+      }
+
+      .content {
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        margin-right: 112px;
+
+        & > .title {
+          font-size: 32px;
+          color: #222222;
+        }
+      }
+    }
+  }
+}
+
+@keyframes popupMaskShow {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popupMaskHide {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* fix: 添加 opacity 的设置，解决华为动画问题。 */
+@keyframes popupBoxShow {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popupBoxHide {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+</style>

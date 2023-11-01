@@ -1,0 +1,40 @@
+<import name="child-one" src="components/child-one.ux"></import>
+<import name="child-two" src="components/child-two.ux"></import>
+<import name="child-three" src="components/child-three.ux"></import>
+<import name="child-four" src="components/child-four.ux"></import>
+
+<template>
+  <div class="wrapper">
+    <!-- 子传父 -->
+    <child-one @send="sendMsg"></child-one>
+    <child-two></child-two>
+    <input value="changeTitle" type="button" @click="changeTitle" />
+    <!-- 父传子 -->
+    <child-three></child-three>
+    <child-four title="{{'this is a title'}}" age="{{18}}"></child-four>
+  </div>
+</template>
+
+<script>
+export default {
+  onInit() {
+    this.$on('send2', (evt) => {
+      console.log(evt.detail.data)
+      evt.stop()
+    })
+  },
+  sendMsg(evt) {
+    console.log(evt.detail.data)
+    evt.stop()
+  },
+  changeTitle() {
+    this.$broadcast('changeTitle', 'changeTitle')
+  },
+}
+</script>
+
+<style>
+.wrapper {
+  flex-direction: column;
+}
+</style>

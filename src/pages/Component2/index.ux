@@ -1,0 +1,57 @@
+<import name="radio-item" src="components/radio-item"></import>
+<import name="detail-item" src="components/detail-item"></import>
+<import name="badge" src="components/badge"></import>
+<import name="input-popup" src="./components/input-popup"></import>
+
+<template>
+  <div class="wrapper">
+    <div>
+      <badge><span>orange</span></badge>
+      <badge color="blue"><span>blue</span></badge>
+      <badge color="black"><span>black</span></badge>
+    </div>
+    <radio-item
+      title="title"
+      label="label"
+      value="value"
+      checked="{{checked}}"
+      @checked="check"
+    ></radio-item>
+    <detail-item arrow title="title" label="label" value="value"></detail-item>
+    <input type="button" value="showPopup" @click="showPopup" />
+    <input-popup
+      visible="{{visible}}"
+      @close="closePopup"
+      @confirm="getPrice"
+    ></input-popup>
+  </div>
+</template>
+
+<script>
+export default {
+  private: {
+    checked: false,
+    visible: false,
+  },
+
+  onInit() { },
+  check({ detail }) {
+    this.checked = detail
+  },
+  showPopup() {
+    this.visible = true
+  },
+  closePopup() {
+    this.visible = false
+  },
+  getPrice(val) {
+    console.log(val)
+  },
+}
+</script>
+
+<style>
+.wrapper {
+  flex-direction: column;
+}
+</style>

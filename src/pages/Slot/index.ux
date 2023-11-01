@@ -1,0 +1,27 @@
+<import name="part1" src="components/part1.ux"></import>
+
+<template>
+  <div class="wrapper">
+    <text class="title">{{ title }}</text>
+
+    <part1>
+      <text>part1 content</text>
+    </part1>
+  </div>
+</template>
+
+<script>
+export default {
+  private: {
+    title: 'Solt 插槽'
+  },
+
+  onInit() { }
+}
+</script>
+
+<style>
+.wrapper {
+  flex-direction: column;
+}
+</style>

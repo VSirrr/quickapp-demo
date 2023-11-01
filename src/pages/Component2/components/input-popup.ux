@@ -1,0 +1,77 @@
+<template>
+  <div>
+    <div class="input-popup" show="{{visible}}">
+      <div class="content">
+        <div class="header">
+          <text @click="close">X</text>
+        </div>
+        <div style="height: 300px"></div>
+        <input
+          id="carPriceInput"
+          type="text"
+          style="border: 1px solid #000000"
+          @change="change"
+          @enterkeyclick="enterkeyClick"
+        />
+        <input type="button" value="confirm" @click="confirm" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    visible: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      price: '',
+    }
+  },
+  close() {
+    this.$element('carPriceInput').focus({ focus: false })
+    this.$emit('close')
+  },
+  change({ value }) {
+    this.price = value
+  },
+  enterkeyClick({ value }) {
+    this.confirm(value)
+  },
+  confirm() {
+    this.$emit('confirm', this.price)
+    this.close()
+  },
+}
+</script>
+
+<style lang="less">
+.input-popup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  .header {
+    padding: 32px 40px;
+  }
+
+  .content {
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 60%;
+    border-top-left-radius: 64px;
+    border-top-right-radius: 64px;
+    background-color: #ffffff;
+  }
+}
+</style>

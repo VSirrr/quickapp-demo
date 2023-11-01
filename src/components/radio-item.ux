@@ -1,0 +1,108 @@
+<import name="radio" src="./radio.ux"></import>
+
+<template>
+  <div class="radio-item">
+    <div class="radio-item-content">
+      <radio checked="{{checked}}" @checked="check"></radio>
+      <div class="text-wrapper">
+        <text class="title">{{ title }}</text>
+        <text if="{{label}}" class="label">{{ label }}</text>
+      </div>
+    </div>
+    <div class="radio-item-value" @click="arrowClick">
+      <text>{{ value }}</text>
+      <div if="{{arrow}}" class="arrow">
+        <image src="/assets/images/icon-arrow-right-black.png"></image>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    title: {
+      type: String,
+      required: true
+    },
+    label: {
+      type: String,
+      default: ''
+    },
+    value: {
+      type: String,
+      required: true
+    },
+    checked: {
+      type: Boolean,
+      default: false
+    },
+    arrow: {
+      type: Boolean,
+      default: false
+    }
+  },
+  check({ detail }) {
+    this.$emit('checked', detail)
+  },
+  arrowClick() {
+    if (this.arrow) {
+      this.$emit('action')
+    }
+  }
+}
+</script>
+
+<style lang="less">
+.radio-item {
+  width: 100%;
+  padding: 32px;
+  border-bottom: 1px solid #e6e6e6;
+
+  &-content {
+    flex: 1;
+    align-items: center;
+
+    .text-wrapper {
+      flex: 1;
+      margin-left: 24px;
+
+      .title {
+        font-size: 28px;
+        color: #646464;
+      }
+
+      .label {
+        margin-left: 24px;
+        font-size: 28px;
+        color: #a7a7a7;
+      }
+    }
+  }
+
+  &-value {
+    width: 200px;
+    padding-right: 34px;
+    justify-content: flex-end;
+
+    text {
+      font-size: 32px;
+      color: #222222;
+    }
+
+    .arrow {
+      align-items: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 28px;
+
+      image {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  }
+}
+</style>

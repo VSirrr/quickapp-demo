@@ -1,0 +1,116 @@
+<import name="child-four" src="components/child-four.ux"></import>
+
+<template>
+  <div class="wrapper">
+    <text class="title">{{ title }}</text>
+    <text id="el1">element</text>
+    <child-four
+      id="child-four"
+      title="{{'this is a title'}}"
+      age="{{18}}"
+    ></child-four>
+    <div style="height: 3000px">
+      <text>
+        页面的生命周期接口的调用顺序 打开页面 A：onInit() -> onReady() -> onShow()
+        在页面 A 打开页面 B：onHide() 
+        从页面 B 返回页面 A：onShow() 
+        A 页面返回：onBackPress() -> onHide() -> onDestroy()
+      </text> 
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  private: {
+    title: 'common props and methods'
+  },
+  // 监听页面初始化。当页面完成初始化时调用，只触发一次
+  onInit(query) {
+    // 通过 deeplink、router.push 等接口传入的 uri 中 query 解析成的对象，或者 router.push 等接口传入的 params 对象
+    console.log(query)
+    // this
+    this.$set('a', 'a')
+    console.log('this', this)
+    // 应用对象
+    console.log('$app', this.$app)
+    // 使用 this.$app.$def 获取在 app.ux 中暴露的对象
+    console.log('this.$app.$def', this.$app.$def)
+    // 使用 this.$app.$data 获取在 manifest.json 的 config.data 中声明的全局数据
+    console.log('this.$app.$data', this.$app.$data)
+    // 页面对象
+    console.log('$page', this.$page)
+    // 页面对象是否有效
+    console.log('$valid', this.$valid)
+    // 页面是否处于用户可见状态
+    console.log('$visible-onInit', this.$visible)
+    // 
+    this.$watch('title', 'aChangeHandler')
+  },
+  // 监听页面创建完成。当页面完成创建可以显示时触发，只触发一次 
+  onReady() {
+    console.log('$visible-onReady', this.$visible)
+    // 获取指定 id 的组件 dom 对象，如果没有指定 id，则返回根组件 dom 对象
+    console.log('element-el1', this.$element('el1'))
+    // root dom
+    console.log('element', this.$element())
+    // 获取顶层 ViewModel
+    console.log('$root', this.$root())
+    // 获取指定 id 的自定义组件的 ViewModel 用法：this.$child('xxx') 获取 id 为 xxx 的 div 组件 ViewModel
+    console.log('$child', this.$child('child-four'))
+  },
+  // 监听页面显示。当进入页面时触发
+  onShow() {
+    // 页面是否处于用户可见状态
+    console.log('$visible-onShow', this.$visible)
+    this.title = 'change'
+  },
+  // 监听页面隐藏。当页面跳转离开时触发
+  onHide() {
+    console.log('onHide')
+  },
+  // 监听页面退出。当页面跳转离开（不进入导航栈）时触发
+  onDestroy() {
+    console.log('onDestroy')
+  },
+  // 监听返回按钮动作。当用户点击返回按钮时触发
+  onBackPress() {
+    console.info(`触发：onBackPress`)
+  },
+  // 监听菜单按钮动作。当用户点击菜单按钮时触发
+  onMenuPress() {
+    console.log('onMenuPress')
+  },
+  // 监听页面重新打开。
+  onRefresh(query) {
+    console.log('onRefresh')
+  },
+  // 监听应用配置发生变化。当应用配置发生变化时触发，如系统语言或主题模式改变
+  onConfigurationChanged(evt) {
+    console.log(`触发生命周期onConfigurationChanged, 配置类型：${evt.type}`)
+  },
+  // 监听页面是否触顶。页面滚动位置从不触顶到触顶时触发
+  onReachTop() {
+    console.log('onReachTop')
+  },
+  // 监听页面是否触底。页面滚动位置从不触底到触底时触发
+  onReachBottom() {
+    console.log('onReachBottom')
+  },
+  // 监听页面滚动。页面发生滚动时触发，内嵌滑动组件的滚动不会触发
+  onPageScroll(evt) {
+    console.log(evt.scrollTop)
+  },
+  aChangeHandler(newVal, oldVal) {
+    console.log('-------------')
+    console.log(newVal, oldVal)
+    console.log('-------------')
+  },
+}
+</script>
+
+<style>
+.wrapper {
+  flex-direction: column;
+}
+</style>

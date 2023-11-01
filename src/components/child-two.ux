@@ -1,0 +1,37 @@
+<template>
+  <div class="wrapper">
+    <text class="title">{{ title }}</text>
+    <input type="button" value="button2" @click="clickHandler" />
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    title: "Hello World. Quickapp Component."
+  },
+
+  props: [],
+
+  onInit() {
+    // $pubsub.subscribe('child-one', (val) => {
+    //   console.log(val)
+    // }, { once: true })
+  },
+  clickHandler() {
+    this.$dispatch('send2', { data: 'data2' })
+  }
+}
+</script>
+
+<style>
+.wrapper {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  text-align: center;
+  color: #212121;
+}
+</style>

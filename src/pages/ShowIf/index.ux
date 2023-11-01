@@ -1,0 +1,39 @@
+<template>
+  <div class="wrapper">
+    <!-- 条件渲染 -->
+    <div if="{{show==1}}">
+      <text>show if</text>
+    </div>
+    <div elif="{{show==2}}">
+      <text>show elif</text>
+    </div>
+    <div else>
+      <text> show else </text>
+    </div>
+
+    <!-- show -->
+    <text show="{{true}}">show</text>
+
+    <!-- blcok -->
+    <block if="{{show}}">
+      <text>block</text>
+      <text>block</text>
+      <text>block</text>
+      <text>block</text>
+    </block>
+  </div>
+</template>
+
+<script>
+export default {
+  private: {
+    show: 2,
+  },
+}
+</script>
+
+<style>
+.wrapper {
+  flex-direction: column;
+}
+</style>

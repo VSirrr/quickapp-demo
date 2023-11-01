@@ -1,0 +1,29 @@
+<template>
+  <div class="layout" style="{{computedStyle}}">
+    <slot name="default"></slot>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    column: {
+      type: Boolean,
+      default: false
+    },
+    customStyle: {
+      type: String,
+      default: ''
+    }
+  },
+  computed: {
+    computedStyle() {
+      const { customStyle, column } = this
+      if (column) {
+        return `flex-direction: column;${customStyle}`
+      }
+      return customStyle
+    }
+  }
+}
+</script>

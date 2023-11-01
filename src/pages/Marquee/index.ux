@@ -1,0 +1,121 @@
+<template>
+  <div class="wrapper">
+    <div show="{{visible}}" class="marquee" style="align-items: center">
+      <marquee id="marquee" scrollamount="{{100}}">{{ str }}</marquee>
+    </div>
+
+    <swiper
+      if="{{visible}}"
+      class="marquee"
+      enableswipe="{{false}}"
+      vertical="{{true}}"
+      autoplay="{{true}}"
+      interval="{{1500}}"
+      indicator="{{false}}"
+      loop="{{true}}"
+    >
+      <div class="marquee-content-item" for="{{info}}">
+        <text for="{{txt in $item.split(' ')}}">{{ txt }}</text>
+      </div>
+    </swiper>
+
+    <div class="marquee" if="{{visible}}">
+      <div class="marquee-content">
+        <div class="marquee-content-item" for="{{info}}">
+          <text for="{{txt in $item.split(' ')}}">{{ txt }}</text>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+const info = [
+  '邓** 138****3316 1分钟前提交询价',
+  '赵* 135****8516 1分钟前提交询价',
+  '井** 133****1312 6分钟前提交询价',
+  '高** 188****7505 7分钟前提交询价',
+  '张** 152****3005 10分钟前提交询价',
+  '杨** 180****4303 11分钟前提交询价',
+  '张* 139****3360 11分钟前提交询价',
+  '金** 135****2145 11分钟前提交询价',
+  '王** 150****5887 15分钟前提交询价',
+  '闫* 138****1368 16分钟前提交询价',
+  '徐** 138****9349 17分钟前提交询价',
+  '王* 139****3650 18分钟前提交询价',
+  '卜** 180****9696 21分钟前提交询价',
+  '钱** 139****4927 21分钟前提交询价',
+  '冯* 147****8000 22分钟前提交询价',
+  '朱* 139****7273 25分钟前提交询价',
+  '安* 156****0205 26分钟前提交询价',
+  '岳** 157****1431 26分钟前提交询价',
+  '苏** 133****9100 28分钟前提交询价',
+  '洪** 138****1477 30分钟前提交询价',
+]
+export default {
+  data() {
+    return {
+      info,
+      visible: false,
+      str: info.join(' '),
+    }
+  },
+  onReady() {
+    setTimeout(() => {
+      this.visible = true
+      this.$element('marquee').start()
+    }, 3000)
+  },
+}
+</script>
+
+<style lang="scss">
+.wrapper {
+  flex-direction: column;
+}
+
+#marquee {
+  font-size: 24px;
+  color: #508cee;
+}
+
+.marquee {
+  /* position: fixed; */
+  /* top: 600px; */
+  /* right: 12px; */
+  height: 60px;
+  background-color: #f1f5ff;
+
+  &-content {
+    flex: 1;
+    flex-direction: column;
+    padding: 0 32px;
+    height: 20 * 60px;
+    animation-name: marquee;
+    animation-duration: 30s;
+    animation-timing-function: linear;
+    animation-delay: 0;
+    animation-iteration-count: infinite;
+
+    &-item {
+      height: 60px;
+
+      text {
+        margin-right: 16px;
+        font-size: 24px;
+        color: #508cee;
+      }
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateY(30px);
+      }
+
+      to {
+        transform: translateY(-20 * 60px);
+      }
+    }
+  }
+}
+</style>

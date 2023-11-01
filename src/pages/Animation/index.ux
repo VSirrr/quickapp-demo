@@ -1,0 +1,33 @@
+<template>
+  <div class="wrapper">
+    <div class="box"></div>
+  </div>
+</template>
+
+<style lang="less">
+.wrapper {
+  flex-direction: column;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: #ff6400;
+  animation-name: translate;
+  animation-duration: 2s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
+
+@keyframes translate {
+  0% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(100px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+</style>

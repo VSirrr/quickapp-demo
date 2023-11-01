@@ -1,0 +1,146 @@
+<template>
+  <div class="wrapper">
+    <text class="title">{{ title }}</text>
+    <!-- 事件绑定 -->
+    <text onclick="{{onclick}}"> click </text>
+    <text @click="onclick"> click </text>
+    <!-- 传递参数 -->
+    <text @click="clickWithParam(1, 2)"> click with param </text>
+    <!-- 事件冒泡 -->
+    <div @click="parentClick">
+      <text id="el" @click="childrenClick">children click</text>
+      <text @click="clickElement">clickElement</text>
+    </div>
+    <!-- 通用事件 -->
+    <div
+      id="div"
+      style="height: 300px; background-color: red"
+      ontouchstart="touchstartHandler"
+      ontouchmove="touchmoveHandler"
+      ontouchend="touchendHandler"
+      ontouchcancel="touchcancelHandler"
+      onclick="clickHandler"
+      onlongpress="longpressHandler"
+      onswipe="swipeHandler"
+    ></div>
+    <input
+      id="input"
+      type="text"
+      style="border: 1px solid #000000"
+      onfocus="focusHandler"
+      onblur="blurHandler"
+    />
+  </div>
+</template>
+
+<script>
+import prompt from '@system.prompt'
+
+export default {
+  private: {
+    title: '事件系统'
+  },
+  onShow() {
+    const div = this.$element('div')
+    const input = this.$element('input')
+    input.focus()
+    // div.getBoundingClientRect({
+    //   success: function (data) {
+    //     const { top, bottom, left, right, width, height } = data;
+    //     prompt.showToast({
+    //       duration: 50000,
+    //       message: `getBoundingClientRect结果： width:${width}, height:${height},
+    //                      top:${top}, bottom:${bottom}, left:${left}, right:${right}`
+    //     })
+    //   },
+    //   fail: (errorData, errorCode) => {
+    //     prompt.showToast({
+    //       message: `错误原因：${JSON.stringify(errorData)}, 错误代码：${errorCode}`
+    //     })
+    //   },
+    //   complete: function () {
+    //     console.info('complete')
+    //   }
+    // })
+    // div.toTempFilePath({
+    //   fileType: 'png',
+    //   quality: 1,
+    //   success() {
+    //     console.log('success')
+    //   },
+    //   fail() {
+    //     console.log('fail')
+    //   },
+    //   complete() {
+    //     console.log('complete')
+    //   }
+    // })
+  },
+  onclick(event) {
+    console.log(event)
+  },
+  clickWithParam(p1, p2, evt) {
+    console.log(p1, p2, evt)
+  },
+  parentClick(evt) {
+    console.log(`parent click: `, evt)
+  },
+  childrenClick(evt) {
+    // evt.stopPropagation();
+    console.log(`children click: `, evt)
+    evt.stopPropagation()
+  },
+  clickElement() {
+    this.$emitElement('click', { params: 'data' }, 'el')
+  },
+  // 手指刚触摸组件时触发
+  touchstartHandler(e) {
+    console.log('touchstartHandler', e)
+  },
+  // 手指触摸后移动时触发
+  touchmoveHandler(e) {
+    console.log('touchmoveHandler', e)
+  },
+  // 手指触摸动作结束时触发
+  touchendHandler(e) {
+    console.log('touchendHandler', e)
+  },
+  // 手指触摸动作被打断时触发。如：来电、弹窗
+  touchcancelHandler(e) {
+    console.log('touchcancelHandler', e)
+  },
+  // 组件被点击时触发
+  clickHandler(e) {
+    console.log('clickHandler', e)
+  },
+  // 组件被长按时触发
+  longpressHandler(e) {
+    console.log('longpressHandler', e)
+  },
+  // 组件获得焦点时触发
+  focusHandler(e) {
+    console.log('focusHandler', e)
+  },
+  // 组件失去焦点时触发
+  blurHandler(e) {
+    console.log('blurHandler', e)
+  },
+  // 组件上快速滑动后触发。
+  /**
+   * 参数说明:
+   *  left：　 向左滑动；
+   *  right： 向右滑动；
+   *  up：　  向上滑动；
+   *  down：  向下滑动。
+   *  */
+  swipeHandler(e) {
+    console.log('swipeHandler', e)
+  },
+}
+</script>
+
+<style>
+.wrapper {
+  flex-direction: column;
+}
+</style>

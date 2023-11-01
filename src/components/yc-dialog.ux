@@ -1,0 +1,252 @@
+<template>
+  <div>
+    <div class="yc-dialog" if="{{isDialogShow}}">
+      <div
+        class="yc-dialog-mask {{isDialogBoxShow ? 'yc-dialog-mask--show' : 'yc-dialog-mask--hide'}}"
+        @click="clickMask"
+      ></div>
+
+      <div
+        class="yc-dialog-box {{isDialogBoxShow ? 'yc-dialog-box--show' : 'yc-dialog-box--hide'}}"
+      >
+        <div class="yc-dialog-box-title">
+          <text>
+            {{ dialogOptions.title }}
+          </text>
+        </div>
+        <div class="yc-dialog-box-content">
+          <text>
+            {{ dialogOptions.content }}
+          </text>
+        </div>
+        <div class="yc-dialog-box-btns">
+          <div class="cancel-btn" @click="hideDialog">
+            <text>
+              {{ dialogOptions.cancelBtnText }}
+            </text>
+          </div>
+          <div class="confirm-btn" @click="confirm">
+            <text>
+              {{ dialogOptions.confirmBtnText }}
+            </text>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+const defaultDialogOptions = {
+  title: 'Dialog Title',
+  content: 'Dialog Content',
+  cancelBtnText: '取消',
+  confirmBtnText: '确定',
+}
+
+export default {
+  props: {
+    maskClosable: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      isDialogShow: false,
+      isDialogBoxShow: false,
+      dialogOptions: {},
+    }
+  },
+  show(options = {}) {
+    this.isDialogShow = true
+    this.isDialogBoxShow = true
+    this.dialogOptions = {
+      ...defaultDialogOptions,
+      ...options,
+    }
+  },
+  hide() {
+    this.isDialogBoxShow = false
+    setTimeout(() => {
+      this.isDialogShow = false
+    }, 250)
+  },
+  clickMask() {
+    if (this.maskClosable) {
+      this.$emit('close')
+    }
+  },
+  async onConfirm() {
+    const { onConfirm } = this.dialogOptions
+    if (typeof onConfirm === 'function') {
+      try {
+        await onConfirm()
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    this.hide()
+  },
+  async onCancel() {
+    const { onCancel } = this.dialogOptions
+    if (typeof onCancel === 'function') {
+      try {
+        await onCancel()
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    this.hide()
+  },
+}
+</script>
+
+<style lang="less">
+.yc-dialog {
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  &-mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(37, 38, 45, 0.7);
+
+    &--show {
+      animation-name: dialogMaskShow;
+      animation-duration: 300ms;
+      animation-fill-mode: forwards;
+    }
+
+    &--hide {
+      animation-name: dialogMaskHide;
+      animation-duration: 250ms;
+      animation-fill-mode: forwards;
+    }
+  }
+
+  &-box {
+    flex-direction: column;
+    align-self: center;
+    position: absolute;
+    padding: 40px;
+    width: 598px;
+    border-radius: 32px;
+    background-color: #ffffff;
+
+    &--show {
+      animation-name: dialogBoxShow;
+      animation-duration: 300ms;
+      animation-fill-mode: forwards;
+    }
+
+    &--hide {
+      animation-name: dialogBoxHide;
+      animation-duration: 250ms;
+      animation-fill-mode: forwards;
+    }
+
+    &-title {
+      justify-content: center;
+
+      text {
+        font-size: 36px;
+        color: #222222;
+      }
+    }
+
+    &-content {
+      justify-content: center;
+      margin-top: 8px;
+      font-size: 28px;
+      color: #a7a7a7;
+    }
+
+    &-btns {
+      justify-content: space-between;
+      margin-top: 48px;
+
+      .cancel-btn {
+        justify-content: center;
+        align-items: center;
+        padding: 22px;
+        width: 240px;
+        height: 88px;
+        border: 1px solid #cccccc;
+        border-radius: 44px;
+
+        text {
+          font-size: 32px;
+          color: #222222;
+          lines: 1;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .confirm-btn {
+        .cancel-btn();
+
+        border: 1px solid #ff4b3b;
+        background-color: #ff4b3b;
+
+        text {
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
+
+@keyframes dialogMaskShow {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialogMaskHide {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* fix: 添加 opacity 的设置，解决华为动画问题。 */
+@keyframes dialogBoxShow {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes dialogBoxHide {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+</style>

@@ -1,0 +1,45 @@
+<template>
+  <divi class="wrapper">
+    <swiper
+      id="swiper"
+      class="swiper swiper-animation"
+      autoplay="false"
+      indicator="false"
+      vertical="true"
+      enableswipe="true"
+      duration="10000"
+    >
+      <div>
+        <video
+          autoplay="false"
+          poster="http://img1.bitautoimg.com/appimage-1920-w1/mapi/media/2022/04/01/ba135b1f75eb43e19209acbf8172cb58.jpg"
+          src="http://qvod.yiche.com/03bd754cvodtransbj1251489075/7d48c574387702298506107086/v.f128246.mp4"
+        ></video>
+      </div>
+      <div>
+        <video
+          autoplay="false"
+          poster="http://img1.bitautoimg.com/appimage-1920-w1/mapi/media/2022/04/01/ba135b1f75eb43e19209acbf8172cb58.jpg"
+          src="http://qvod.yiche.com/03bd754cvodtransbj1251489075/7d48c574387702298506107086/v.f128246.mp4"
+        ></video>
+      </div>
+      <div>
+        <video
+          autoplay="false"
+          poster="http://img1.bitautoimg.com/appimage-1920-w1/mapi/media/2022/04/01/ba135b1f75eb43e19209acbf8172cb58.jpg"
+          src="http://qvod.yiche.com/03bd754cvodtransbj1251489075/7d48c574387702298506107086/v.f128246.mp4"
+        ></video>
+      </div>
+    </swiper>
+  </divi>
+</template>
+
+<script>
+export default {}
+</script>
+
+<style lang="scss">
+.wrapper {
+  flex-direction: column;
+}
+</style>

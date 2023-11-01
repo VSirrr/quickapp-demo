@@ -1,0 +1,81 @@
+<template>
+  <div class="check-list {{reverse ? 'theme-light' : 'theme-dark'}}">
+    <div class="check-list-title">
+      <text>{{ title }}</text>
+    </div>
+    <div class="check-list-value">
+      <text class="tag {{idx === $idx ? 'tag-active' : ''}}" for="options" @click="check($idx)">
+        {{ $item.title }}
+      </text>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    reverse: {
+      type: Boolean,
+      default: false
+    },
+    title: {
+      type: String,
+      required: true
+    },
+    options: {
+      type: Array,
+      default: () => []
+    }
+  },
+  data() {
+    return {
+      idx: undefined
+    }
+  },
+  check($idx) {
+    this.idx = $idx
+    this.$emit('checked', this.options[$idx])
+  }
+}
+</script>
+
+<style lang="less">
+.check-list {
+  padding: 32px;
+
+  &-title {
+    font-size: 28px;
+    color: #646464;
+  }
+
+  & > &-value {
+    flex: 1;
+    justify-content: flex-end;
+
+    .tag {
+      padding: 8px 30px;
+      margin-left: 10px;
+      border-radius: 8px;
+      font-size: 24px;
+      color: #222222;
+
+      &-active {
+        color: #3377ff;
+        background-color: rgba(51, 119, 255, 0.1);
+      }
+    }
+  }
+}
+
+.theme-light {
+  .tag {
+    background-color: #ffffff;
+  }
+}
+
+.theme-dark {
+  .tag {
+    background-color: #f8f8f8;
+  }
+}
+</style>

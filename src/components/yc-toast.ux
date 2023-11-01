@@ -1,0 +1,82 @@
+<template>
+  <div class="yc-toast" style="display: {{displayStyle}}">
+    <div class="yc-toast-content">
+      <image if="{{isLoading}}" src="/assets/images/spinner.svg"></image>
+      <text>{{ content }}</text>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {},
+  data() {
+    return {
+      // 是否显示 toast
+      visible: false,
+      // toast 内容
+      content: '',
+      // 是否是 loading 样式
+      isLoading: false
+    }
+  },
+  computed: {
+    displayStyle() {
+      return this.visible ? 'flex' : 'none'
+    }
+  },
+  info(content = '', duration = 2000) {
+    this.content = content
+    this.show()
+
+    return new Promise(resolve => {
+      setTimeout(() => {
+        this.hide()
+        resolve()
+      }, duration)
+    })
+  },
+  loading(loadingText = '加载中...') {
+    this.isLoading = true
+    this.content = loadingText
+    this.show()
+  },
+  show() {
+    this.visible = true
+  },
+  hide() {
+    this.isLoading = false
+    this.visible = false
+  }
+}
+</script>
+
+<style lang="scss">
+.yc-toast {
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  &-content {
+    margin: 0 96px;
+    padding: 24px;
+    background-color: rgba(0, 0, 0, 0.75);
+    border-radius: 8px;
+
+    image {
+      margin-right: 4px;
+      width: 48px;
+      height: 48px;
+    }
+
+    text {
+      font-size: 34px;
+      color: #ffffff;
+    }
+  }
+}
+</style>

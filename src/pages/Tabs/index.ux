@@ -1,0 +1,194 @@
+<template>
+  <div class="tutorial-page">
+    <!-- tabs组件 -->
+    <tabs onchange="tabsChange">
+      <tab-bar class="tab-bar" mode="scrollable">
+        <div class="tab-bar-tab">
+          <text>menu1</text>
+        </div>
+        <div class="tab-bar-tab">
+          <text>menu2</text>
+        </div>
+        <div class="tab-bar-tab">
+          <text>menu3</text>
+        </div>
+      </tab-bar>
+      <tab-content class="tab-content">
+        <div class="tab-content-section">
+          <text>content1</text>
+        </div>
+        <div class="tab-content-section">
+          <text>content2</text>
+        </div>
+        <div class="tab-content-section">
+          <text>content3</text>
+        </div>
+      </tab-content>
+    </tabs>
+
+    <!-- 页签内容懒加载 -->
+    <tabs onchange="onChangeTabIndex">
+      <tab-bar class="tab-bar" mode="scrollable">
+        <text
+          for="{{tabHeadList}}"
+          class="{{currentIndex === $idx ? 'active' : ''}}"
+          >{{ $item.title }}</text
+        >
+      </tab-bar>
+      <tab-content class="tab-content">
+        <div class="tab-content-section" for="{{tabHeadList}}">
+          <!-- 初始化时，if为false，默认不渲染；页签被首次点击时，对应页签内容的if由false改为true -->
+          <text if="{{$item.render}}">{{ $item.title }}</text>
+        </div>
+      </tab-content>
+    </tabs>
+
+    <!-- 灵活使用tabs组件 -->
+    <div class="flexible-tabs">
+      <!-- 自定义tab-bar组件 -->
+      <div class="flexible-tabbar">
+        <image src="./img/user.png" onclick="routePage('personal')"></image>
+        <text class="{{curIdx === 0 ? 'active' : ''}}" onclick="clickTabBar(0)"
+          >聊天</text
+        >
+        <text class="{{curIdx === 1 ?  'active' : ''}}" onclick="clickTabBar(1)"
+          >发现</text
+        >
+        <text class="{{curIdx === 2 ? 'active' : ''}}" onclick="clickTabBar(2)"
+          >通讯录</text
+        >
+        <image src="./img/search.png" onclick="routePage('search')"></image>
+      </div>
+      <!-- 监听change事件，触发时动态修改tabs的index属性 -->
+      <tabs onchange="changeTabactive" index="{{curIdx}}">
+        <tab-content class="flexible-tab-content">
+          <div class="tab-content-section">
+            <text>聊天</text>
+          </div>
+          <div class="tab-content-section">
+            <text>发现</text>
+          </div>
+          <div class="tab-content-section">
+            <text>通讯录</text>
+          </div>
+        </tab-content>
+      </tabs>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  private: {
+    tabHeadList: [
+      { title: '推荐', render: false },
+      { title: '热门', render: false },
+      { title: '视频', render: false },
+      // { title: '段子', render: false },
+      // { title: '汽车', render: false },
+      // { title: '社会', render: false },
+      // { title: '娱乐', render: false },
+      // { title: '军事', render: false },
+      // { title: '体育', render: false },
+      // { title: '财经', render: false }
+    ],
+    currentIndex: 0,
+    curIdx: 0,
+  },
+  tabsChange(evt) {
+    console.log('tab-evt', evt)
+  },
+  /**
+   * 修改列表中对应索引的数据项
+   * @param index
+   */
+  modifyListItemData(index) {
+    this.tabHeadList[index].render = true
+  },
+  /**
+   * 监听tabs组件index的改变，index默认为0
+   * @param evt
+   */
+  onChangeTabIndex(evt) {
+    this.currentIndex = evt.index
+    this.modifyListItemData(evt.index)
+  },
+  changeTabactive(evt) {
+    this.curIdx = evt.index
+  },
+  clickTabBar(index) {
+    this.curIdx = index
+  },
+}
+</script>
+
+<style lang="less">
+.tutorial-page {
+  /* flex: 1; */
+  flex-direction: column;
+  .tab-bar {
+    border-bottom: 1px solid #e8e8e8;
+    &-tab {
+      padding-right: 24px;
+      color: #ff6600;
+    }
+  }
+  .tab-bar text {
+    padding: 0 25px;
+    text-align: center;
+    font-size: 34px;
+  }
+  .tab-bar .active {
+    color: #ff0000;
+  }
+  .tab-content {
+    flex: 1;
+    background-color: #eeeeee;
+    .tab-content-section {
+      flex: 1;
+      margin: 10px;
+      background-color: #ffffff;
+      justify-content: center;
+      text {
+        text-align: center;
+        color: #ff0000;
+      }
+    }
+  }
+  .flexible-tabs {
+    flex: 1;
+    flex-direction: column;
+    .flexible-tabbar {
+      height: 100px;
+      padding: 0 30px;
+      background-color: #f1f1f1;
+      align-items: center;
+      text {
+        flex-grow: 1;
+        height: 100px;
+        margin: 0 30px;
+        text-align: center;
+        border: 0px solid #f1f1f1;
+        border-bottom-width: 5px;
+      }
+      image {
+        height: 50px;
+        width: 50px;
+        resize-mode: contain;
+      }
+      .active {
+        color: #0faeff;
+        border-bottom-color: #0faeff;
+      }
+    }
+    .flexible-tab-content {
+      flex: 1;
+      .tab-content-section {
+        flex: 1;
+        background-color: #ffffff;
+        justify-content: center;
+      }
+    }
+  }
+}
+</style>

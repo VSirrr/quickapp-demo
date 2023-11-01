@@ -1,0 +1,184 @@
+<import name="qa-console" src="@vsirrr/qa-console/component.ux"></import>
+<import name="yc-popup" src="components/yc-popup.ux"></import>
+<import name="yc-dialog" src="components/yc-dialog.ux"></import>
+
+<template>
+  <div style="flex-direction: column; padding-bottom: 100px">
+    <a href="/pages/For">跳转到For页面</a>
+    <a href="/pages/ShowIf">跳转到ShowIf页面</a>
+    <a href="/pages/Link">跳转到Link页面</a>
+    <a href="/pages/Slot">跳转到Slot页面</a>
+    <a href="/pages/Event">跳转到Event页面</a>
+    <a href="/pages/Component2">跳转到Component页面</a>
+    <a href="/pages/Perf">跳转到Perf页面</a>
+    <a href="/pages/Stack">跳转到Stack页面</a>
+    <a href="/pages/Map">跳转到Map页面</a>
+    <a href="/pages/Tabs">跳转到Tabs页面</a>
+    <a href="/pages/Canvas">跳转到Canvas页面</a>
+    <a href="/pages/List">跳转List页面</a>
+    <a href="/pages/Form">跳转Form页面</a>
+    <a href="/pages/Common?p1=12&p2=21">跳转Common页面</a>
+    <a href="/pages/BroadcastChannel">跳转BroadcastChannel页面</a>
+    <a href="/pages/Animation">跳转Animation页面</a>
+    <a href="/pages/Popup">跳转Popup页面</a>
+    <a href="/pages/Refresh">跳转Refresh页面</a>
+    <a href="/pages/Richtext">跳转Richtext页面</a>
+    <a href="/pages/Swiper">跳转Swiper页面</a>
+    <a href="/pages/Drawer">跳转Drawer页面</a>
+    <a href="/pages/Layout">跳转Layout页面</a>
+    <a href="/pages/API">跳转API页面</a>
+    <a href="/pages/Marquee">跳转Marquee页面</a>
+    <yc-popup id="popup" @close="popupClose">
+      <div class="content">
+        <textarea
+          id="textarea"
+          class="textarea"
+          placeholder="请输入评论"
+        ></textarea>
+        <div class="btn">
+          <text>发布</text>
+        </div>
+        <!-- <div show="{{popupVisible}}" style="height: 400px"></div> -->
+      </div>
+    </yc-popup>
+    <input type="button" value="popup show" @click="popupShow" />
+    <input type="button" value="dialog show" @click="dialogShow" />
+    <yc-dialog id="dialog"></yc-dialog>
+    <!-- <div if="{{show}}" class="tab-menu">
+      <text class="tab-menu-item">tab1</text>
+      <text class="tab-menu-item">tab2</text>
+      <text class="tab-menu-item">tab3</text>
+    </div> -->
+    <!-- use qa-console component to debug -->
+    <qa-console></qa-console>
+    <div class="img">
+      <image
+        src="https://image.bitautoimg.com/wapimg-630-0/bitauto/2022/01/13/d90b9a71-1f00-4274-966e-7a61bd80e9b0_630_w1.jpg"
+      ></image>
+    </div>
+
+    <text @click="goLinkPage">打开 Link 页面</text>
+  </div>
+</template>
+
+<script>
+import router from '@system.router'
+import prompt from '@system.prompt'
+import shortcut from '@system.shortcut'
+import configuration from '@system.configuration'
+
+export default {
+  private: {
+    show: false,
+    visible: false,
+    hasInstalled: false,
+    popupVisible: false,
+  },
+  onInit() {
+    const channelInstance = new BroadcastChannel('testChannel')
+    channelInstance.onmessage = (evt) => {
+      console.log('testChannel---', evt.data)
+      channelInstance.postMessage('hehehehe')
+    }
+  },
+  onShow() {
+    // throw 'ss'
+    setTimeout(() => {
+      this.$page.hideSkeleton()
+    }, 1500)
+    setTimeout(() => {
+      this.show = true
+
+      // prompt.showLoading({
+      //   // message: 'loading...',
+      //   // loadingColor: 'orange',
+      //   mask: false,
+      // })
+    }, 2000)
+
+    // setTimeout(()=>{
+    //   prompt.hideLoading()
+    // },3000)
+
+    // console.log({ a: 1, b: 2 })
+    // console.log(this)
+    // console.log(this.$element())
+    // console.log(new Date)
+  },
+  onConfigurationChanged(params) {
+    const { type = '' } = params
+    if (type === 'themeMode') {
+      const themeMode = configuration.getThemeMode()
+      console.log(`themeMode has changed! And now theme mode is ${themeMode}.`)
+    } else {
+      console.log(`other type of config has changed, type is : ${type}.`)
+    }
+  },
+  popupShow() {
+    this.$child('popup').show()
+    // this.$element('textarea').focus({ focus: true })
+  },
+  popupClose() {
+    this.$element('textarea').focus({ focus: false })
+  },
+  dialogShow() {
+    this.$child('dialog').show({
+      title: '隐私政策',
+      content: '请同意隐私政策',
+      confirmBtnText: '同意',
+      cancelBtnText: '不同意',
+    })
+  },
+  goLinkPage() {
+    router.push({
+      uri: '/pages/Link?a=1',
+      params: {
+        b: 2,
+      },
+    })
+  },
+}
+</script>
+
+<style lang="less">
+.tab-menu {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100px;
+  line-height: 100px;
+  background-color: #ff6400;
+
+  &-item {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+.content {
+  flex-direction: column;
+  padding: 32px;
+  background-color: #ffffff;
+  .textarea {
+    padding: 12px 24px;
+    height: 100px;
+    line-height: 30px;
+    font-size: 28px;
+    color: #222222;
+    caret-color: #3377ff;
+    background-color: #ebedf0;
+  }
+}
+.img {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #000000;
+
+  image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+</style>

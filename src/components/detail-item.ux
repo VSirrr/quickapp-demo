@@ -1,0 +1,64 @@
+<template>
+  <div class="detail-item">
+    <div class="detail-item-title">
+      <text class="title">{{ title }}</text>
+      <text if="{{label}}" class="label">{{ label }}</text>
+    </div>
+    <div class="detail-item-value">
+      <text>{{ value }}</text>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    title: {
+      type: String,
+      required: true
+    },
+    label: {
+      type: String,
+      default: ''
+    },
+    value: {
+      type: String,
+      required: true
+    }
+  }
+}
+</script>
+
+<style lang="less">
+.detail-item {
+  width: 100%;
+  padding: 32px;
+  border-bottom: 1px solid #e6e6e6;
+
+  &-title {
+    flex: 1;
+
+    .title {
+      font-size: 28px;
+      color: #646464;
+    }
+
+    .label {
+      margin-left: 24px;
+      font-size: 28px;
+      color: #a7a7a7;
+    }
+  }
+
+  &-value {
+    padding-right: 20px;
+    width: 200px;
+    justify-content: flex-end;
+
+    text {
+      font-size: 32px;
+      color: #222222;
+    }
+  }
+}
+</style>

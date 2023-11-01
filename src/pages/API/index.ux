@@ -1,0 +1,100 @@
+<template>
+  <div class="wrapper">
+    <input
+      if="{{!hasInstalled}}"
+      type="button"
+      value="install shortcut"
+      @click="installShortcut"
+    />
+    <input type="button" value="share something" @click="share" />
+    <input type="button" value="loadPage" @click="loadPage" />
+  </div>
+</template>
+
+<script>
+import share from '@system.share'
+import prompt from '@system.prompt'
+import webview from '@system.webview'
+import network from '@system.network'
+import shortcut from '@system.shortcut'
+
+export default {
+  private: {
+    hasInstalled: false,
+  },
+  onInit() {
+    console.log('API page onInit')
+    // this.showLoading()
+    this.judgeShortcutInstalled()
+    this.getNetworkType()
+  },
+  showLoading() {
+    prompt.showLoading({
+      // message: 'loading...',
+      // loadingColor: 'orange',
+      mask: false,
+    })
+
+    setTimeout(() => {
+      prompt.hideLoading()
+    }, 1000)
+  },
+  judgeShortcutInstalled() {
+    shortcut.hasInstalled({
+      success: function (ret) {
+        console.log('hasInstalled success ret---' + ret)
+        this.hasInstalled = ret
+      }.bind(this),
+      fail: function (erromsg, errocode) {
+        console.log(erromsg, errocode)
+      }.bind(this),
+    })
+  },
+  installShortcut() {
+    if (this.hasInstalled) {
+      return
+    }
+    shortcut.install({
+      message: 'Adds the shortcut to the desktop for convenient use next time.',
+      success: function (ret) {
+        console.log(ret)
+      },
+      fail: function (erromsg, errocode) {
+        console.log(erromsg, errocode)
+      }.bind(this),
+    })
+  },
+  getNetworkType() {
+    network.getType({
+      success: function ({ type, metered }) {
+        console.log('type: ' + type)
+        console.log('metered: ' + metered)
+      },
+    })
+  },
+  share() {
+    share.share({
+      type: 'text/html',
+      data: '<b>bold</b>',
+      success: function (data) {
+        console.log('handling success')
+      },
+      fail: function (data, code) {
+        console.log('handling fail, code=' + code)
+      },
+    })
+  },
+  loadPage() {
+    webview.loadUrl({
+      url: 'https://www.baidu.com',
+      allowthirdpartycookies: false,
+    })
+  },
+}
+</script>
+
+<style>
+.wrapper {
+  flex-direction: column;
+}
+</style>

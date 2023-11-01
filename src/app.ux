@@ -1,0 +1,104 @@
+<script>
+/**
+ * 应用级别的配置，供所有页面公用
+ */
+import storage from '@system.storage'
+import prompt from '@system.prompt'
+import device from '@system.device'
+import $axios from './helper/axios'
+import $ajax from './helper/ajax'
+import $utils from './helper/utils'
+// import './helper/global.js'
+import armor from './helper/armor'
+
+// 初始化 qa-console
+if (process.env.NODE_ENV === 'development') {
+  require('@vsirrr/qa-console')
+}
+// const regeneratorRuntime = require('@babel/runtime/regenerator')
+/* @desc: 注入方法至全局 global,以便页面调用 */
+const hook2global = global.__proto__ || global
+hook2global.$ajax = $ajax
+hook2global.$utils = $utils
+hook2global.$axios = $axios
+// 配置 async 语法的 babel 编译支持
+// hook2global.regeneratorRuntime = regeneratorRuntime
+// test: test setGlobalData api
+// setGlobalData('a',1)
+// console.log(hook2global.getGlobalData('a'))
+
+export default {
+  // 监听应用创建,应用创建时调用
+  onCreate() {
+    console.log('app onCreate')
+    // $ajax.get('https://fanyi.baidu.com/mobile/config')
+    // $ajax.get('https://f1anyi.baidu.com/mobile/config')
+
+    armor.request.defaults.timeout = 10000
+    armor
+      .request({
+        url: 'https://newsapi.yiche.com/citybase/locate?format=json',
+        method: 'GET',
+        requestFail(data) {
+          console.log('requestFail', data)
+        },
+      })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+
+    for (let index = 0; index < 10; index++) {
+      storage.set({
+        key: index + 1,
+        value: Math.random(),
+      })
+    }
+  },
+  // 监听应用收到一个外部的打开新页面的请求
+  onRequest() {
+    console.log('app onRequest')
+  },
+  // 监听应用返回前台,应用返回前台时调用
+  onShow() {
+    console.log('app onShow')
+    // 获取设备唯一标识
+    device.getDeviceId({
+      success: function (data) {
+        console.log(`handling success: `, data)
+      },
+      fail: function (data, code) {
+        console.log(`handling fail, code = ${code}, errorMsg=${data}`)
+      },
+    })
+    // 获取设备序列号
+    device.getSerial({
+      success: function (data) {
+        console.log(`handling success: ${data.serial}`)
+      },
+      fail: function (data, code) {
+        console.log(`handling fail, code = ${code}`)
+      },
+    })
+  },
+  // 监听应用退到后台,应用退到后台时调用
+  onHide() {
+    console.log('app onHide')
+  },
+  // 监听应用销毁,应用销毁时调用
+  onDestroy() {
+    console.log('app onDestroy')
+  },
+  // 监听应用报错,应用捕获异常时调用
+  onError(err) {
+    console.error(`error message=${err.message}, stack=${err.stack}`)
+  },
+  // 监听页面跳转的异常
+  onPageNotFound(params) {
+    const { uri = '' } = params
+    console.error('error uri', uri)
+  },
+}
+</script>
