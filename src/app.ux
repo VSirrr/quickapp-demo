@@ -9,7 +9,6 @@ import $axios from './helper/axios'
 import $ajax from './helper/ajax'
 import $utils from './helper/utils'
 // import './helper/global.js'
-import armor from './helper/armor'
 
 // 初始化 qa-console
 if (process.env.NODE_ENV === 'development') {
@@ -33,22 +32,6 @@ export default {
     console.log('app onCreate')
     // $ajax.get('https://fanyi.baidu.com/mobile/config')
     // $ajax.get('https://f1anyi.baidu.com/mobile/config')
-
-    armor.request.defaults.timeout = 10000
-    armor
-      .request({
-        url: 'https://newsapi.yiche.com/citybase/locate?format=json',
-        method: 'GET',
-        requestFail(data) {
-          console.log('requestFail', data)
-        },
-      })
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((error) => {
-        console.error(error)
-      })
 
     for (let index = 0; index < 10; index++) {
       storage.set({

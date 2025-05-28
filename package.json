@@ -15,7 +15,6 @@
     "prettier-watcher": "onchange '**/*.md' \"src/**/**/*.{ux,js,json,less,scss,css,pcss,md,vue}\" -- prettier --write {{changed}}"
   },
   "dependencies": {
-    "@armor/core": "^1.1.6",
     "apex-ui": "^1.9.2",
     "circular-json-es6": "^2.0.2",
     "flatted": "^3.2.2",
