@@ -30,8 +30,14 @@ export default {
   // 监听应用创建,应用创建时调用
   onCreate() {
     console.log('app onCreate')
-    // $ajax.get('https://fanyi.baidu.com/mobile/config')
-    // $ajax.get('https://f1anyi.baidu.com/mobile/config')
+    $ajax.get('https://fanyi.baidu.com/mobile/config').then((res) => {
+      console.log('$ajax', res)
+    })
+    $axios({
+      url: 'https://fanyi.baidu.com/mobile/config',
+    }).then((res) => {
+      console.log('$axios', res)
+    })
 
     for (let index = 0; index < 10; index++) {
       storage.set({
