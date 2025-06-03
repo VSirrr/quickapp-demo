@@ -10,6 +10,7 @@
     <a href="mailto:example@xx.com">调起邮件</a>
     <!-- 打开webview加载网页 -->
     <a href="https://www.baidu.com/">打开网页</a>
+    <!-- <a href="hap://app/com.wjcd.ylg">hap://app/com.wjcd.ylg</a> -->
   </div>
 </template>
 

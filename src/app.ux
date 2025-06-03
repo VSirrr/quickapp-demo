@@ -5,6 +5,8 @@
 import storage from '@system.storage'
 import prompt from '@system.prompt'
 import device from '@system.device'
+import router from '@system.router'
+import app from '@system.app'
 import $axios from './helper/axios'
 import $ajax from './helper/ajax'
 import $utils from './helper/utils'
@@ -20,6 +22,7 @@ const hook2global = global.__proto__ || global
 hook2global.$ajax = $ajax
 hook2global.$utils = $utils
 hook2global.$axios = $axios
+// console.log(hook2global, 'hook2global')
 // 配置 async 语法的 babel 编译支持
 // hook2global.regeneratorRuntime = regeneratorRuntime
 // test: test setGlobalData api
@@ -75,6 +78,43 @@ export default {
   // 监听应用退到后台,应用退到后台时调用
   onHide() {
     console.log('app onHide')
+    /* const { packageName } = app.getInfo()
+    console.log(packageName)
+    setTimeout(() => {
+      try {
+        // router.clear()
+        router.push({
+          uri: `hap://app/${packageName}/pages/For`,
+        })
+        console.log('router.push')
+      } catch (error) {
+        console.error(error, 1)
+      }
+    }, 3e3) */
+    /*  new async function () {}.constructor(`return new Promise(async () => {
+      console.log('app onHide constructor')
+      try {
+        const require = arguments[0]
+        const router = arguments[1]
+        async function a() {
+          console.log(111)
+          console.log()
+          console.log(require)
+          console.log()
+          console.log(router)
+          // const router = require('@system.router')
+          // router.clear()
+          router.push({
+            uri: 'hap://app/${packageName}/pages/For',
+            params: {},
+          })
+          return Promise.resolve(223)
+        }
+        await a()
+      } catch (error) {
+        console.error(error, 1)
+      }
+    })`)($app_require$, router) */
   },
   // 监听应用销毁,应用销毁时调用
   onDestroy() {

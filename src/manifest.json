@@ -1,234 +1,239 @@
 {
-  "package": "com.yiche.test",
-  "name": "test",
-  "versionName": "1.0.0",
-  "versionCode": 1,
-  "minPlatformVersion": 1070,
-  "icon": "/assets/images/logo.png",
-  "features": [
-    {
-      "name": "system.prompt"
+    "package": "com.yiche.test",
+    "name": "test",
+    "versionName": "1.0.0",
+    "versionCode": 1,
+    "minPlatformVersion": 1070,
+    "icon": "/assets/images/logo.png",
+    "features": [
+        {
+            "name": "system.prompt"
+        },
+        {
+            "name": "system.device"
+        },
+        {
+            "name": "system.router"
+        },
+        {
+            "name": "system.shortcut"
+        },
+        {
+            "name": "system.fetch"
+        },
+        {
+            "name": "system.clipboard"
+        }
+    ],
+    "background": {
+        "features": [
+            "system.router"
+        ]
     },
-    {
-      "name": "system.device"
+    "permissions": [
+        {
+            "origin": "*"
+        }
+    ],
+    "template/official": "demo-template",
+    "config": {
+        "logLevel": "debug",
+        "data": {
+            "globalData": {
+                "a": "a",
+                "b": "b"
+            }
+        },
+        "network": {
+            "connectTimeout": 30000,
+            "readTimeout": 30000,
+            "writeTimeout": 30000
+        }
     },
-    {
-      "name": "system.router"
+    "router": {
+        "entry": "pages/Index",
+        "pages": {
+            "pages/Index": {
+                "component": "index"
+            },
+            "pages/List": {
+                "component": "index"
+            },
+            "pages/Perf": {
+                "component": "index"
+            },
+            "pages/Stack": {
+                "component": "index"
+            },
+            "pages/Map": {
+                "component": "index"
+            },
+            "pages/Tabs": {
+                "component": "index"
+            },
+            "pages/Component": {
+                "component": "index"
+            },
+            "pages/For": {
+                "component": "index"
+            },
+            "pages/ShowIf": {
+                "component": "index"
+            },
+            "pages/Event": {
+                "component": "index"
+            },
+            "pages/Link": {
+                "component": "index"
+            },
+            "pages/Slot": {
+                "component": "index"
+            },
+            "pages/Canvas": {
+                "component": "index"
+            },
+            "pages/Form": {
+                "component": "index"
+            },
+            "pages/Common": {
+                "component": "index"
+            },
+            "pages/BroadcastChannel": {
+                "component": "index"
+            },
+            "pages/Drawer": {
+                "component": "index"
+            },
+            "pages/Animation": {
+                "component": "index"
+            },
+            "pages/Popup": {
+                "component": "index"
+            },
+            "pages/Refresh": {
+                "component": "index"
+            },
+            "pages/Swiper": {
+                "component": "index"
+            },
+            "pages/Layout": {
+                "component": "index"
+            },
+            "pages/Richtext": {
+                "component": "index"
+            },
+            "pages/Component2": {
+                "component": "index"
+            },
+            "pages/API": {
+                "component": "index"
+            },
+            "pages/Video": {
+                "component": "index"
+            },
+            "pages/Marquee": {
+                "component": "index"
+            }
+        }
     },
-    {
-      "name": "system.shortcut"
-    },
-    {
-      "name": "system.fetch"
-    },
-    {
-      "name": "system.clipboard"
+    "display": {
+        "themeMode": -1,
+        "forceDark": true,
+        "backgroundColor": "#ffffff",
+        "fullScreen": false,
+        "titleBar": true,
+        "titleBarBackgroundColor": "#ff4400",
+        "titleBarTextColor": "#ffffff",
+        "menu": false,
+        "windowSoftInputMode": "adjustPan",
+        "orientation": "portrait",
+        "statusBarImmersive": false,
+        "statusBarTextStyle": "auto",
+        "textSizeAdjust": "auto",
+        "menuBarData": {
+            "menuBar": true,
+            "menuBarStyle": "light",
+            "shareTitle": "Hello QuickApp!!!",
+            "shareDescription": "Welcome to use quickapp"
+        },
+        "pages": {
+            "pages/Index": {
+                "titleBarText": "快应用示例模版",
+                "pageCache": true,
+                "cacheDuration": 3600000
+            },
+            "pages/List": {
+                "titleBarText": "列表"
+            },
+            "pages/Perf": {
+                "titleBarText": "Perf"
+            },
+            "pages/Stack": {
+                "titleBarText": "Stack"
+            },
+            "pages/Map": {
+                "titleBarText": "Map"
+            },
+            "pages/Tabs": {
+                "titleBarText": "Tabs"
+            },
+            "pages/Console": {
+                "titleBarText": "Console"
+            },
+            "pages/Component": {
+                "titleBarText": "Component"
+            },
+            "pages/For": {
+                "titleBarText": "For"
+            },
+            "pages/ShowIf": {
+                "titleBarText": "ShowIf"
+            },
+            "pages/Event": {
+                "titleBarText": "Event"
+            },
+            "pages/Link": {
+                "titleBarText": "Link"
+            },
+            "pages/Slot": {
+                "titleBarText": "Slot"
+            },
+            "pages/Canvas": {
+                "titleBarText": "Canvas"
+            },
+            "pages/Form": {
+                "titleBarText": "Form"
+            },
+            "pages/Common": {
+                "titleBarText": "Common"
+            },
+            "pages/BroadcastChannel": {
+                "titleBarText": "BroadcastChannel"
+            },
+            "pages/Animation": {
+                "titleBarText": "Animation"
+            },
+            "pages/Popup": {
+                "titleBarText": "Popup"
+            },
+            "pages/Refresh": {
+                "titleBarText": "Refresh"
+            },
+            "pages/Swiper": {
+                "titleBarText": "Swiper"
+            },
+            "pages/Layout": {
+                "titleBarText": "Layout"
+            },
+            "pages/Richtext": {
+                "titleBarText": "Richtext"
+            },
+            "pages/Component2": {
+                "titleBarText": "Component2"
+            },
+            "pages/API": {
+                "titleBarText": "API"
+            }
+        }
     }
-  ],
-  "permissions": [
-    {
-      "origin": "*"
-    }
-  ],
-  "template/official": "demo-template",
-  "config": {
-    "logLevel": "debug",
-    "data": {
-      "globalData": {
-        "a": "a",
-        "b": "b"
-      }
-    },
-    "network": {
-      "connectTimeout": 30000,
-      "readTimeout": 30000,
-      "writeTimeout": 30000
-    }
-  },
-  "router": {
-    "entry": "pages/Index",
-    "pages": {
-      "pages/Index": {
-        "component": "index"
-      },
-      "pages/List": {
-        "component": "index"
-      },
-      "pages/Perf": {
-        "component": "index"
-      },
-      "pages/Stack": {
-        "component": "index"
-      },
-      "pages/Map": {
-        "component": "index"
-      },
-      "pages/Tabs": {
-        "component": "index"
-      },
-      "pages/Component": {
-        "component": "index"
-      },
-      "pages/For": {
-        "component": "index"
-      },
-      "pages/ShowIf": {
-        "component": "index"
-      },
-      "pages/Event": {
-        "component": "index"
-      },
-      "pages/Link": {
-        "component": "index"
-      },
-      "pages/Slot": {
-        "component": "index"
-      },
-      "pages/Canvas": {
-        "component": "index"
-      },
-      "pages/Form": {
-        "component": "index"
-      },
-      "pages/Common": {
-        "component": "index"
-      },
-      "pages/BroadcastChannel": {
-        "component": "index"
-      },
-      "pages/Drawer": {
-        "component": "index"
-      },
-      "pages/Animation": {
-        "component": "index"
-      },
-      "pages/Popup": {
-        "component": "index"
-      },
-      "pages/Refresh": {
-        "component": "index"
-      },
-      "pages/Swiper": {
-        "component": "index"
-      },
-      "pages/Layout": {
-        "component": "index"
-      },
-      "pages/Richtext": {
-        "component": "index"
-      },
-      "pages/Component2": {
-        "component": "index"
-      },
-      "pages/API": {
-        "component": "index"
-      },
-      "pages/Video": {
-        "component": "index"
-      },
-      "pages/Marquee": {
-        "component": "index"
-      }
-    }
-  },
-  "display": {
-    "themeMode": -1,
-    "forceDark": true,
-    "backgroundColor": "#ffffff",
-    "fullScreen": false,
-    "titleBar": true,
-    "titleBarBackgroundColor": "#ff4400",
-    "titleBarTextColor": "#ffffff",
-    "menu": false,
-    "windowSoftInputMode": "adjustPan",
-    "orientation": "portrait",
-    "statusBarImmersive": false,
-    "statusBarTextStyle": "auto",
-    "textSizeAdjust": "auto",
-    "menuBarData": {
-      "menuBar": true,
-      "menuBarStyle": "light",
-      "shareTitle": "Hello QuickApp!!!",
-      "shareDescription": "Welcome to use quickapp"
-    },
-    "pages": {
-      "pages/Index": {
-        "titleBarText": "快应用示例模版",
-        "pageCache": true,
-        "cacheDuration": 3600000
-      },
-      "pages/List": {
-        "titleBarText": "列表"
-      },
-      "pages/Perf": {
-        "titleBarText": "Perf"
-      },
-      "pages/Stack": {
-        "titleBarText": "Stack"
-      },
-      "pages/Map": {
-        "titleBarText": "Map"
-      },
-      "pages/Tabs": {
-        "titleBarText": "Tabs"
-      },
-      "pages/Console": {
-        "titleBarText": "Console"
-      },
-      "pages/Component": {
-        "titleBarText": "Component"
-      },
-      "pages/For": {
-        "titleBarText": "For"
-      },
-      "pages/ShowIf": {
-        "titleBarText": "ShowIf"
-      },
-      "pages/Event": {
-        "titleBarText": "Event"
-      },
-      "pages/Link": {
-        "titleBarText": "Link"
-      },
-      "pages/Slot": {
-        "titleBarText": "Slot"
-      },
-      "pages/Canvas": {
-        "titleBarText": "Canvas"
-      },
-      "pages/Form": {
-        "titleBarText": "Form"
-      },
-      "pages/Common": {
-        "titleBarText": "Common"
-      },
-      "pages/BroadcastChannel": {
-        "titleBarText": "BroadcastChannel"
-      },
-      "pages/Animation": {
-        "titleBarText": "Animation"
-      },
-      "pages/Popup": {
-        "titleBarText": "Popup"
-      },
-      "pages/Refresh": {
-        "titleBarText": "Refresh"
-      },
-      "pages/Swiper": {
-        "titleBarText": "Swiper"
-      },
-      "pages/Layout": {
-        "titleBarText": "Layout"
-      },
-      "pages/Richtext": {
-        "titleBarText": "Richtext"
-      },
-      "pages/Component2": {
-        "titleBarText": "Component2"
-      },
-      "pages/API": {
-        "titleBarText": "API"
-      }
-    }
-  }
 }
